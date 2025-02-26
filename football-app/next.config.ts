@@ -1,7 +1,9 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  publicRuntimeConfig: {
+    footballApiKey: process.env.FOOTBALL_API_KEY,
+  }
 };
 
 export default nextConfig;
