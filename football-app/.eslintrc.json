@@ -1,0 +1,77 @@
+{
+  "ignorePatterns": ["**/node_modules/*", "**/dist/*", "/node_modules/*", "dist/*", "src/themes/boxt/**/*", "src/themes/oblix/**/*"],
+  "extends": ["eslint:recommended", "next/core-web-vitals", "plugin:prettier/recommended"],
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint", "jam3", "simple-import-sort", "sort-keys-fix"],
+  "rules": {
+    "no-restricted-syntax": [
+      "error",
+      {
+        "message": "You are using a mocked endpoint request. Make sure this doesn't end up in production!",
+        "selector":
+          "CallExpression[callee.name='mockApiRequest']"
+      }
+    ],
+    "no-restricted-imports": ["error", {
+      "paths": [
+        {
+          "name": "lodash",
+          "message": "Please avoid using `lodash` imports. Instead use `lodash-es`."
+        }
+      ]
+    }],
+    "no-console": ["error", { "allow": ["warn", "error", "info"] }],
+    "react/jsx-boolean-value": ["error", "never"],
+    "@typescript-eslint/consistent-type-imports": "error",
+    "jam3/no-sanitizer-with-danger": [ 2, { "wrapperName": ["sanitize"] }],
+    "prettier/prettier": ["error",
+      {
+        "printWidth": 120
+      }],
+      "no-unused-vars": "off",
+      "@typescript-eslint/no-unused-vars": ["error", { "ignoreRestSiblings": true }],
+      "react/display-name": "off",
+      "react/jsx-sort-props": [
+        "error",
+        {
+          "callbacksLast": false,
+          "ignoreCase": true,
+          "noSortAlphabetically": false,
+          "shorthandFirst": false,
+          "shorthandLast": false
+        }
+      ],
+      "simple-import-sort/imports": [
+        "error",
+        {
+          "groups": [
+            // Packages `react` related packages come first.
+            ["^react", "^next", "styled-components", "@testing-library", "^@?\\w", "@boxt"],
+            // Internal packages.
+            ["@Constants", "@Helpers", "@Collections", "@StateMachines", "@DataAccess", "@Lib", "@Hoc", "@Components", "@Hooks", "@Locators", "@Pages", "@Mocks", "@Styles", "@Images"],
+            // Side effect imports.
+            ["^\\u0000"],
+            // Parent imports. Put `..` last.
+            ["^\\.\\.(?!/?$)", "^\\.\\./?$"],
+            ["^src"],
+            // Other relative imports. Put same-folder imports and `.` last.
+            ["^\\./(?=.*/)(?!/?$)", "^\\.(?!/?$)", "^\\./?$"],
+            // Style imports.
+            ["^.+\\.?(css)$"],
+            // locals for tests
+            ["locales"]
+          ]
+        }
+      ],
+      "sort-keys-fix/sort-keys-fix": "error"
+  },
+  "env": {
+    "browser": true,
+    "jest": true
+  },
+  "globals": {
+    "google": "readonly",
+    "globalThis": "readonly",
+    "JSX": "readonly"
+  }
+}
