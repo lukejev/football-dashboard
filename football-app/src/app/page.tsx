@@ -1,10 +1,13 @@
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import LeagueTable from "./components/LeagueTable/LeagueTable";
+
+const queryClient = new QueryClient()
 
 export default function Home() {
   return (
-    <div className="">
+    <QueryClientProvider client={queryClient}>
       <p>lol</p>
       <LeagueTable />
-    </div>
+    </QueryClientProvider>
   );
 }
